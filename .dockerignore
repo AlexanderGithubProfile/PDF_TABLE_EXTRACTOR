@@ -1,0 +1,8 @@
+.venv
+.tables_image_based
+.tables
+.archieve
+.__pycache__
+.idea
+.old_venv
+.new_venv

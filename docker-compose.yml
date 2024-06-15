@@ -1,0 +1,17 @@
+services:
+##############################################################################
+  doc_vision:
+##############################################################################
+    container_name: doc_vision
+    build:
+      context: .
+    stdin_open: true
+    tty: true
+    restart: always
+    volumes:
+      - type: bind
+        source: ./OUTPUT_tables
+        target: /app/OUTPUT_tables
+      - type: bind
+        source: ./INPUT_pdf_to_scan
+        target: /app/INPUT_pdf_to_scan
