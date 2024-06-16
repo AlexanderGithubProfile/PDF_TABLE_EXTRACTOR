@@ -2,10 +2,10 @@
 - Приложение для извлечения таблиц из PDF финансовых отчетов (текст и сканы).
 - Основные модули расположены в [**utils_img_processing.py**](./utils_img_processing.py), [**utils_img_table_detection**](./utils_img_table_detection.py) и GUI в [**service_gui**](./service_gui.py).
   
-[**English**](./README_en.md) | [**Русский**](./README.md)
+[English](./README_en.md) | [**Русский**](./README.md)
 
 <p align="center">
- <img src="assets/readme_start.png" width="800">
+ <img src="assets/readme_start1.png" width="800">
 </p>
 
 ## Использование
@@ -28,7 +28,7 @@
 
 ## 
 <p align="center">
-   <img src="assets/readme_example.png" width="800">
+   <img src="assets/readme_example1.png" width="800">
 </p>
 
 ## Структура проекта
@@ -41,7 +41,7 @@
 ##
 
 <p align="center">
-   <img src="assets/readme_detect.png" width="800">
+   <img src="assets/readme_detect1.png" width="800">
    
 </p>
 
@@ -63,6 +63,6 @@ pip install -r requirements.txt
 python service_gui.py
 ```
 <p align="center">
-   <img src="assets/readme_extra.png" width="800">
+   <img src="assets/readme_extra1.png" width="800">
    
 </p>

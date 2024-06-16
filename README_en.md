@@ -5,7 +5,7 @@
 [**English**](./README_en.md) | [Русский](./README.md)
 
 <p align="center">
- <img src="assets/readme_start.png" width="800">
+ <img src="assets/readme_start1.png" width="800">
 </p>
 
 ## Usage
@@ -28,7 +28,7 @@ PyTesseract is used for data extraction from images, DBSCAN from scikit-learn fo
 
 ## 
 <p align="center">
-   <img src="assets/readme_example.png" width="800">
+   <img src="assets/readme_example1.png" width="800">
 </p>
 
 ## Project Structure
@@ -42,7 +42,7 @@ PyTesseract is used for data extraction from images, DBSCAN from scikit-learn fo
 ##
 
 <p align="center">
-   <img src="assets/readme_detect.png" width="800">
+   <img src="assets/readme_detect1.png" width="800">
 </p>
 
 ## Getting Started
@@ -62,5 +62,5 @@ pip install -r requirements.txt
 python service_gui.py
 ```
 <p align="center">
-   <img src="assets/readme_extra.png" width="800">
+   <img src="assets/readme_extra1.png" width="800">
 </p>
