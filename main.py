@@ -1,11 +1,13 @@
 import os
+import logging
+from typing import List, Union, Any
 from utils_img_processing import extract_image_text
 from utils_data_extract import extract_table_of_contents, check_pdf_pages
 from utils_img_table_detection import image_loader, image_processing, is_table, show_image
 
 # PIPELINE_START
 #######################################################################
-def main(self, logger):
+def main(self: Any, logger: logging.Logger) -> None:
     # Директории ввода и сохранения
     input_dir = 'INPUT_pdf_to_scan'
     output_dir = 'OUTPUT_tables'
@@ -20,8 +22,8 @@ def main(self, logger):
         os.makedirs(output_dir, exist_ok=True)
 
         logger.info("Извлечение таблиц из PDF")
-        toc = extract_table_of_contents(fr'{pdf_path}') # Ищем оглавление, извлекаем № стр. и имя для назв. табл. csv
-        image_based = check_pdf_pages(self, pdf_path, toc, output_dir, logger) # Извлеч. text-based и отдел. image-based стр. в список
+        toc: List[Union[str, int]] = extract_table_of_contents(fr'{pdf_path}') # Ищем оглавление, извлекаем № стр. и имя для назв. табл. csv
+        image_based: List[int] = check_pdf_pages(self, pdf_path, toc, output_dir, logger) # Извлеч. text-based и отдел. image-based стр. в список
 
         # Определим на каких изображениях таблицы
         image_list = []

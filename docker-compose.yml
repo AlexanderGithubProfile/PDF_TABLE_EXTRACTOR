@@ -1,8 +1,8 @@
 services:
 ##############################################################################
-  doc_vision:
+  pdf_extractor:
 ##############################################################################
-    container_name: doc_vision
+    container_name: pdf_extractor
     build:
       context: .
     stdin_open: true
@@ -10,7 +10,6 @@ services:
     restart: always
     volumes:
       - type: bind
-        source: ./OUTPUT_tables
         target: /app/OUTPUT_tables
       - type: bind
         source: ./INPUT_pdf_to_scan

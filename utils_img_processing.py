@@ -6,6 +6,7 @@ import fitz
 import asyncio
 import pytesseract
 from PIL import Image
+from typing import Optional
 from g4f.client import Client as G4FClient
 
 # Исключение ошибки клиента для чат-гпт
@@ -13,8 +14,8 @@ if sys.platform == 'win32':
     asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
     pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
 
-# Обработка таблиц в LLM
-async def text_converting(prompt_text):
+async def text_converting(prompt_text: str) -> str:
+    """Обработка таблиц в LLM"""
     client = G4FClient()
     response = client.chat.completions.create(
         model="gpt-3.5-turbo",
@@ -29,8 +30,8 @@ async def text_converting(prompt_text):
     else:
         return reminder_text
 
-# Извлечение инф. из PDF изображений
-def extract_image_text(pdf_path, page_number, output_dir, output_img_dir, logger):
+def extract_image_text(pdf_path: str, page_number: int, output_dir: str, output_img_dir: str, logger) -> None:
+    """Извлечение инф. из PDF изображений"""
     doc = fitz.open(pdf_path)
     page = doc.load_page(page_number) # Пройти по всем страницам
 
@@ -51,8 +52,8 @@ def extract_image_text(pdf_path, page_number, output_dir, output_img_dir, logger
     convert_and_save_data(data, page_number, output_dir, output_img_dir)
     logger.info(f'Стр.{page_number + 1} обработана и сохранена')
 
-# Сохранение таблиц из PDF изображений
-def convert_and_save_data(data, page_number, output_dir, output_img_dir):
+def convert_and_save_data(data: str, page_number: int, output_dir: str, output_img_dir: str) -> None:
+    """Сохранение таблиц из PDF изображений"""
     data = data.strip("[] \n").strip('[')
     lines = data.split("\n")
     os.makedirs(f'{output_dir}', exist_ok=True)

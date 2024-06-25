@@ -28,6 +28,6 @@ RUN pip install -r requirements.txt
 ENV JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64/
 ENV PATH=$PATH:$JAVA_HOME/bin:/usr/lib/jvm/java-11-openjdk-amd64/bin
 ENV PATH=${PATH}:/usr/local/bin/tesseract
-
+ENV DISPLAY=host.docker.internal:0.0
 # Запуск приложения
 CMD ["python", "service_gui.py"]

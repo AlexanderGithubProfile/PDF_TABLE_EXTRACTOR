@@ -4,5 +4,7 @@
 .archieve
 .__pycache__
 .idea
-.old_venv
-.new_venv
+.newvenv
+.dockerignore
+INPUT_pdf_to_scan
+OUTPUT_tables\

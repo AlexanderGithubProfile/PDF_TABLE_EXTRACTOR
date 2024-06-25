@@ -6,8 +6,8 @@ import numpy as np
 from sklearn.cluster import DBSCAN, HDBSCAN
 from PIL import Image, ImageDraw, ImageFont
 
-# Бинаризируем изображение для тесеракта
-def image_loader(page_num, pdf_path):
+def image_loader(page_num: int, pdf_path: str) -> Image.Image:
+    """Бинаризируем изображение для тесеракта"""
     doc = fitz.open(pdf_path)
     page = doc.load_page(page_num) # Пройти по всем страницам
 
@@ -19,11 +19,12 @@ def image_loader(page_num, pdf_path):
         image = Image.open(io.BytesIO(image_bytes))
         return image
 
-# Основной модуль извлечения текста из изображения
-def image_processing(img):
+def image_processing(img: Image.Image) -> list:
+    """Основной модуль извлечения текста из изображения"""
     pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
-    cong = r'--oem 3 --psm 6 outputbase digits'
-    boxes = pytesseract.image_to_data(img, config=cong)
+    config = r'--oem 3 --psm 6 outputbase digits'
+
+    boxes = pytesseract.image_to_data(img, config=config)
     right_side = []
     for i, line in enumerate(boxes.splitlines()):
         if i != 0:
@@ -36,21 +37,25 @@ def image_processing(img):
                 #font = ImageFont.truetype("arial.ttf", 20)
     return right_side
 
-# Обнаружение таблицы на изображении. Метод кластеров
-def is_table(right_indent, page_num, logger):
-    X = np.array(right_indent).reshape(-1, 1) # Список данных в массив numpy
-    #db = HDBSCAN(min_samples=20, min_cluster_size=30).fit(X)
-    db = DBSCAN(eps=50, min_samples=20).fit(X) # Применяем DBSCAN для кластеризации, eps - расстояние
-    labels = db.labels_
+def is_table(right_indent: list, page_num: int, logger) -> bool:
+    """Обнаружение таблицы на изображении. Метод кластеров"""
+    try:
+        X = np.array(right_indent).reshape(-1, 1) # Список данных в массив numpy
+        #db = HDBSCAN(min_samples=20, min_cluster_size=30).fit(X)
+        db = DBSCAN(eps=50, min_samples=20).fit(X) # Применяем DBSCAN для кластеризации, eps - расстояние
+        labels = db.labels_
 
-    # Количество кластеров (исключая шум)
-    n_clusters = len(set(labels)) - (1 if -1 in labels else 0)
-    result = "Таблица обнаружена" if n_clusters >= 2 else "Таблица отсутствует"
-    logger.info(f'Стр. №{page_num + 1}: {result}')
-    return n_clusters >= 2
+        # Количество кластеров (исключая шум)
+        n_clusters = len(set(labels)) - (1 if -1 in labels else 0)
+        result = "Таблица обнаружена" if n_clusters >= 2 else "Таблица отсутствует"
+        logger.info(f'Стр. №{page_num + 1}: {result}')
+        return n_clusters >= 2
+    except Exception as e:
+        logger.info(f'Ошибка модуля кластеризации')
+        return False
 
-#Создание изображения для текста
-def show_image(img, result, output_dir, page_num):
+def show_image(img: Image.Image, result: bool, output_dir: str, page_num: int) -> None:
+    """Функция создания изображения с текстом о наличии или отсутствии таблицы"""
     text = "table detected" if result else "table not detected"
 
     # Создание текста "table detected", инициализация параметров, вычисление размеров и т.п.
